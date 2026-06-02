@@ -1,5 +1,5 @@
 {
-  "name": "@flipr/agent-sdk",
+  "name": "@milkybear/agent-sdk",
   "version": "0.3.0",
   "description": "TypeScript SDK for Flipr x402 — pay USDC on Base or Solana, flip coins on-chain (Chainlink VRF). Autonomous agent-ready.",
   "type": "module",
