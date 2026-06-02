@@ -1,0 +1,71 @@
+{
+  "name": "@flipr/agent-sdk",
+  "version": "0.3.0",
+  "description": "TypeScript SDK for Flipr x402 — pay USDC on Base or Solana, flip coins on-chain (Chainlink VRF). Autonomous agent-ready.",
+  "type": "module",
+  "main": "./dist/sdk/index.js",
+  "module": "./dist/sdk/index.js",
+  "types": "./dist/sdk/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/sdk/index.d.ts",
+      "import": "./dist/sdk/index.js",
+      "default": "./dist/sdk/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "x402",
+    "agents",
+    "base",
+    "usdc",
+    "coin-flip",
+    "vrf",
+    "on-chain",
+    "flipr"
+  ],
+  "homepage": "https://flipr-x402.fly.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iainkek/flipr-agent-sdk.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@x402/evm": "^2.4.0",
+    "@x402/fetch": "^2.4.0",
+    "viem": "^2.39.0"
+  },
+  "peerDependencies": {
+    "@x402/svm": ">=2.14.0",
+    "@solana/kit": ">=2.1.0",
+    "bs58": ">=6.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@x402/svm": {
+      "optional": true
+    },
+    "@solana/kit": {
+      "optional": true
+    },
+    "bs58": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  },
+  "bugs": {
+    "url": "https://github.com/iainkek/flipr-agent-sdk/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "github_packages": "To publish to GitHub Packages instead: npm publish --registry=https://npm.pkg.github.com"
+}
