@@ -1,6 +1,6 @@
 {
-  "name": "@milkybear/agent-sdk",
-  "version": "0.3.0",
+  "name": "@iainkek/agent-sdk",
+  "version": "0.3.1",
   "description": "TypeScript SDK for Flipr x402 — pay USDC on Base or Solana, flip coins on-chain (Chainlink VRF). Autonomous agent-ready.",
   "type": "module",
   "main": "./dist/sdk/index.js",
@@ -65,7 +65,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://npm.pkg.github.com"
   },
   "github_packages": "To publish to GitHub Packages instead: npm publish --registry=https://npm.pkg.github.com"
 }

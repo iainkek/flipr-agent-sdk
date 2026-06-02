@@ -278,11 +278,38 @@ export class FliprAgent {
             },
             body: "{}",
         });
-        if (flipRes.status !== 202) {
+        let bridgeId;
+        let pollUrl;
+        if (flipRes.status === 202) {
+            ({ bridgeId, pollUrl } = await flipRes.json());
+        }
+        else if (flipRes.status === 402) {
+            // Replay defense: the 150s SETNX window is still open for this signature.
+            // The gateway returns 402 with extra.unavailable === 'payment_already_consumed'
+            // and extra.existingBridge pointing at the in-progress bridge record.
+            // DO NOT re-sign — that creates a second payment. Poll the existing bridge.
+            let body402;
+            try {
+                body402 = await flipRes.json();
+            }
+            catch {
+                body402 = {};
+            }
+            const existing = body402?.accepts?.[0]?.extra?.existingBridge;
+            if (existing?.pollUrl) {
+                bridgeId = existing.bridgeId;
+                pollUrl = existing.pollUrl;
+                // Fast-forward — the bridge may already be resolved; skip the first 4s sleep.
+            }
+            else {
+                throw new Error(`Solana flip payment rejected (402): ${JSON.stringify(body402).slice(0, 300)}. ` +
+                    `If this is 'payment_already_consumed', the 150s replay window is open — wait and retry.`);
+            }
+        }
+        else {
             const body = await flipRes.text();
             throw new Error(`Solana flip payment rejected (${flipRes.status}): ${body}`);
         }
-        const { bridgeId, pollUrl } = await flipRes.json();
         // Step 7: Poll bridge until flip_resolved or terminal failure (up to 90s).
         const TERMINAL_FAIL = new Set([
             "failed_burn_credited", "failed_mint_credited", "flip_failed_credited", "failed_stuck",
